@@ -65,13 +65,13 @@ void cleanPackages(int os)
 void help()
 {
 	printf("PKG Options:\n"
-			"c - removes orphans and cleans the package cache\n"
-			"h - display this message\n"
-			"i - installs selected packages\n"
-			"q - display installed packages\n"
-			"r - remove a selected package\n"
-			"s - look up for a package in the available repositories\n"
-			"u - updates repos and packages\n\n");
+		"c - removes orphans and cleans the package cache\n"
+		"h - display this message\n"
+		"i - installs selected packages\n"
+		"q - display installed packages\n"
+		"r - remove a selected package\n"
+		"s - look up for a package in the available repositories\n"
+		"u - updates repos and packages\n\n");
 }
 
 void installPackages(int os, char *packages)

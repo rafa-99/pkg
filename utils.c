@@ -11,7 +11,7 @@ int checkIfFileExists(char *path)
 int detectOsType()
 {
 	int exists = ERROR;
-	for ( int i = 0; i < ENUMSIZE || exists == ERROR; i++ )
+	for ( int i = 0; i < ENUMSIZE && exists == ERROR; i++ )
 	{
 		switch (i)
 		{
