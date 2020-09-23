@@ -5,6 +5,12 @@ This is a C wrapper that integrates with the prebuilt package managers in variou
 
 ## How to use
 
+### Install
+
+`sudo make clean install`
+
+### Usage
+
 `pkg <command>`
 
 ### Commands
@@ -22,6 +28,18 @@ This is a C wrapper that integrates with the prebuilt package managers in variou
 * **s**	*search* - look up for a package in the available repositories
 
 * **u**	*update* - updates repos and packages
+
+## Supported OS'es
+
+* Arch Linux based distros;
+* Debian based distros;
+* Gentoo based distros;
+* Void Linux *(or xbps)* derived/based distro.
+
+## FAQ
+
+**Q: Will you ever add *X* OS to the wrapper?**
+A: Depends on the OS notoriety and usage, unless you open a PR with your code to adding support to the desired OS. In that case, I'll gladly merge the PR.
 
 ## Authors:
 
