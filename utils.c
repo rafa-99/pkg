@@ -1,4 +1,6 @@
 #include "utils.h"
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 int checkIfFileExists(char *path)
@@ -42,4 +44,17 @@ int detectOsType()
 		}
 	}
 	return exists;
+}
+
+char* stringedArgument(int argc, char** argv)
+{
+	int numberOfTotalPackages = argc - 2;
+	char* arg = (char *) calloc((numberOfTotalPackages * 80), sizeof(char));
+
+	for( int i = 2; i < argc; i++ )
+	{
+		strcat(arg, argv[i]);
+		strcat(arg, " ");
+	}
+	return arg;
 }

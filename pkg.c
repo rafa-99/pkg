@@ -8,5 +8,7 @@
 
 int main(int argc, char **argv)
 {
+	char* arg = stringedArgument(argc, argv);
+	free(arg);
 	return 0;
 }
