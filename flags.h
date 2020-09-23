@@ -1,6 +1,6 @@
 #include "utils.h"
 
-void actions(char action, char* packages);
+void flags(char flag, char* packages);
 void cleanPackages(int os);
 void help();
 void installPackages(int os, char* packages);

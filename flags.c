@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <string.h>
-#include "actions.h"
+#include "flags.h"
 
-void actions(char action, char* packages)
+void flags(char flag, char* packages)
 {
 	int os = detectOsType();
-	switch (action)
+	switch (flag)
 	{
 		case 'c':
 			cleanPackages(os);

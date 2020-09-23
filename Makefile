@@ -1,7 +1,5 @@
-all: pkg
-
-pkg:
-	cc -o pkg pkg.c actions.c utils.c
+all:
+	cc -o pkg pkg.c flags.c utils.c
 
 clean:
 	rm -rf pkg
