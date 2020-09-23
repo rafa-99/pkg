@@ -1,10 +1,10 @@
 #include "utils.h"
 
-void actions(char action);
-void clean(int os);
+void actions(char action, char* packages);
+void cleanPackages(int os);
 void help();
-void installPackage(int os);
-void queryPackage(int os);
-void removePackage(int os);
-void searchPackage(int os);
-void updatePackage(int os);
+void installPackages(int os, char* packages);
+void queryPackages(int os);
+void removePackages(int os, char* packages);
+void searchPackages(int os, char* packages);
+void updatePackages(int os);
