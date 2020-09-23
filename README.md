@@ -15,7 +15,7 @@ This is a C wrapper that integrates with the prebuilt package managers in variou
 
 ### Commands
 
-* **c**	*clean* - configure an email account
+* **c**	*clean* - removes orphans and cleans the package cache
 
 * **h**	*help* - shows help message
 
@@ -39,6 +39,7 @@ This is a C wrapper that integrates with the prebuilt package managers in variou
 ## FAQ
 
 **Q: Will you ever add *X* OS to the wrapper?**
+
 A: Depends on the OS notoriety and usage, unless you open a PR with your code to adding support to the desired OS. In that case, I'll gladly merge the PR.
 
 ## Authors:
