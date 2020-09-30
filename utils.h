@@ -4,9 +4,10 @@
 
 enum os
 {
-	pacman,
 	apt,
+	dnf,
 	emerge,
+	pacman,
 	xbps,
 	ENUMSIZE
 };

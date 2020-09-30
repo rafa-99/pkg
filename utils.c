@@ -15,13 +15,6 @@ int detectOsType()
 	{
 		switch (i)
 		{
-			case pacman:
-				if ( checkIfFileExists("/usr/bin/pacman") == 0 )
-				{
-					exists = i;
-				}
-				break;
-
 			case apt:
 				if ( checkIfFileExists("/usr/bin/apt") == 0 )
 				{
@@ -29,8 +22,22 @@ int detectOsType()
 				}
 				break;
 
+			case dnf:
+				if ( checkIfFileExists("/usr/bin/dnf") == 0 )
+				{
+					exists = i;
+				}
+				break;
+
 			case emerge:
 				if ( checkIfFileExists("/usr/bin/emerge") == 0 )
+				{
+					exists = i;
+				}
+				break;
+
+			case pacman:
+				if ( checkIfFileExists("/usr/bin/pacman") == 0 )
 				{
 					exists = i;
 				}

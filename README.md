@@ -33,6 +33,7 @@ This is a C wrapper that integrates with the prebuilt package managers in variou
 
 * Arch Linux based distros;
 * Debian based distros;
+* Fedora based distros;
 * Gentoo based distros;
 * Void Linux *(or xbps)* derived/based distro.
 

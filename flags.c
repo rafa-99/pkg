@@ -45,16 +45,20 @@ void cleanPackages(int os)
 {
 	switch(os)
 	{
-		case pacman:
-			system("pacman -Rns \"$(pacman -Qtdq)\" || pacman -Scc");
-			break;
-
 		case apt:
 			system("apt autoremove --purge || apt clean");
 			break;
 
+		case dnf:
+			system("dnf clean all && dnf autoremove");
+			break;
+
 		case emerge:
 			system("emerge -caq");
+			break;
+
+		case pacman:
+			system("pacman -Rns \"$(pacman -Qtdq)\" || pacman -Scc");
 			break;
 
 		case xbps:
@@ -81,13 +85,6 @@ void installPackages(int os, char *packages)
 		char* command = (char *) calloc(strlen(packages) + 80, sizeof(char));
 		switch(os)
 		{
-			case pacman:
-				strcpy(command, "pacman -S ");
-				strcat(command, packages);
-				system(command);
-				free(command);
-				break;
-
 			case apt:
 				strcpy(command, "apt install ");
 				strcat(command, packages);
@@ -95,8 +92,22 @@ void installPackages(int os, char *packages)
 				free(command);
 				break;
 
+			case dnf:
+				strcpy(command, "dnf install ");
+				strcat(command, packages);
+				system(command);
+				free(command);
+				break;
+
 			case emerge:
 				strcpy(command, "emerge -aq ");
+				strcat(command, packages);
+				system(command);
+				free(command);
+				break;
+
+			case pacman:
+				strcpy(command, "pacman -S ");
 				strcat(command, packages);
 				system(command);
 				free(command);
@@ -119,16 +130,20 @@ void queryPackages(int os)
 {
 	switch(os)
 	{
-		case pacman:
-			system("pacman -Qs");
-			break;
-
 		case apt:
 			system("apt list --installed");
 			break;
 
+		case dnf:
+			system("dnf list --installed");
+			break;
+
 		case emerge:
 			system("cd /var/db/pkg/ && ls -d */* | sed 's:\\/$::'");
+			break;
+
+		case pacman:
+			system("pacman -Qs");
 			break;
 
 		case xbps:
@@ -143,13 +158,6 @@ void removePackages(int os, char *packages)
 		char* command = (char *) calloc(strlen(packages) + 80, sizeof(char));
 		switch(os)
 		{
-			case pacman:
-				strcpy(command, "pacman -Rnsc ");
-				strcat(command, packages);
-				system(command);
-				free(command);
-				break;
-
 			case apt:
 				strcpy(command, "apt autoremove --purge ");
 				strcat(command, packages);
@@ -157,8 +165,22 @@ void removePackages(int os, char *packages)
 				free(command);
 				break;
 
+			case dnf:
+				strcpy(command, "dnf remove ");
+				strcat(command, packages);
+				system(command);
+				free(command);
+				break;
+
 			case emerge:
 				strcpy(command, "emerge -caq ");
+				strcat(command, packages);
+				system(command);
+				free(command);
+				break;
+
+			case pacman:
+				strcpy(command, "pacman -Rnsc ");
 				strcat(command, packages);
 				system(command);
 				free(command);
@@ -184,13 +206,6 @@ void searchPackages(int os, char *packages)
 		char* command = (char *) calloc(strlen(packages) + 80, sizeof(char));
 		switch(os)
 		{
-			case pacman:
-				strcpy(command, "pacman -Ss ");
-				strcat(command, packages);
-				system(command);
-				free(command);
-				break;
-
 			case apt:
 				strcpy(command, "apt search ");
 				strcat(command, packages);
@@ -198,8 +213,22 @@ void searchPackages(int os, char *packages)
 				free(command);
 				break;
 
+			case dnf:
+				strcpy(command, "dnf search ");
+				strcat(command, packages);
+				system(command);
+				free(command);
+				break;
+
 			case emerge:
 				strcpy(command, "emerge -s ");
+				strcat(command, packages);
+				system(command);
+				free(command);
+				break;
+
+			case pacman:
+				strcpy(command, "pacman -Ss ");
 				strcat(command, packages);
 				system(command);
 				free(command);
@@ -222,16 +251,20 @@ void updatePackages(int os)
 {
 	switch(os)
 	{
-		case pacman:
-			system("pacman -Syyuu");
-			break;
-
 		case apt:
 			system("apt update && apt upgrade -y");
 			break;
 
+		case dnf:
+			system("dnf update");
+			break;
+
 		case emerge:
 			system("emerge-webrsync && emerge -uaqDU --keep-going --with-bdeps=y --newuse @world");
+			break;
+
+		case pacman:
+			system("pacman -Syyuu");
 			break;
 
 		case xbps:
