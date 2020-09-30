@@ -15,3 +15,4 @@ enum os
 int checkIfFileExists(char *path);
 int detectOsType();
 char* stringedArgument(int argc, char** argv);
+void commandProcessor(char* packages, char* initCommand);

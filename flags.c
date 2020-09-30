@@ -69,59 +69,39 @@ void cleanPackages(int os)
 void help()
 {
 	printf("PKG Options:\n"
-		"c - removes orphans and cleans the package cache\n"
-		"h - display this message\n"
-		"i - installs selected packages\n"
-		"q - display installed packages\n"
-		"r - remove a selected package\n"
-		"s - look up for a package in the available repositories\n"
-		"u - updates repos and packages\n\n");
+			"c - removes orphans and cleans the package cache\n"
+			"h - display this message\n"
+			"i - installs selected packages\n"
+			"q - display installed packages\n"
+			"r - remove a selected package\n"
+			"s - look up for a package in the available repositories\n"
+			"u - updates repos and packages\n\n");
 }
 
 void installPackages(int os, char *packages)
 {
 	if ( strlen(packages) > 0 )
 	{
-		char* command = (char *) calloc(strlen(packages) + 80, sizeof(char));
 		switch(os)
 		{
 			case apt:
-				strcpy(command, "apt install ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "apt install ");
 				break;
 
 			case dnf:
-				strcpy(command, "dnf install ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "dnf install ");
 				break;
 
 			case emerge:
-				strcpy(command, "emerge -aq ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "emerge -aq ");
 				break;
 
 			case pacman:
-				strcpy(command, "pacman -S ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "pacman -S ");
 				break;
 
 			case xbps:
-				strcpy(command, "xbps-install -S ");
-				strcat(command, packages);
-				system(command);
-				free(command);
-				break;
-
-			default:
-				free(command);
+				commandProcessor(packages, "xbps-install -S ");
 		}
 	}
 }
@@ -155,46 +135,26 @@ void removePackages(int os, char *packages)
 {
 	if ( strlen(packages) > 0 )
 	{
-		char* command = (char *) calloc(strlen(packages) + 80, sizeof(char));
 		switch(os)
 		{
 			case apt:
-				strcpy(command, "apt autoremove --purge ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "apt autoremove --purge ");
 				break;
 
 			case dnf:
-				strcpy(command, "dnf remove ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "dnf remove ");
 				break;
 
 			case emerge:
-				strcpy(command, "emerge -caq ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "emerge -caq ");
 				break;
 
 			case pacman:
-				strcpy(command, "pacman -Rnsc ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "pacman -Rnsc ");
 				break;
 
 			case xbps:
-				strcpy(command, "xbps-remove -ROo ");
-				strcat(command, packages);
-				system(command);
-				free(command);
-				break;
-
-			default:
-				free(command);
+				commandProcessor(packages, "xbps-remove -ROo ");
 		}
 	}
 }
@@ -203,46 +163,26 @@ void searchPackages(int os, char *packages)
 {
 	if ( strlen(packages) > 0 )
 	{
-		char* command = (char *) calloc(strlen(packages) + 80, sizeof(char));
 		switch(os)
 		{
 			case apt:
-				strcpy(command, "apt search ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "apt search ");
 				break;
 
 			case dnf:
-				strcpy(command, "dnf search ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "dnf search ");
 				break;
 
 			case emerge:
-				strcpy(command, "emerge -s ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "emerge -s ");
 				break;
 
 			case pacman:
-				strcpy(command, "pacman -Ss ");
-				strcat(command, packages);
-				system(command);
-				free(command);
+				commandProcessor(packages, "pacman -Ss ");
 				break;
 
 			case xbps:
-				strcpy(command, "xbps-query -Rs ");
-				strcat(command, packages);
-				system(command);
-				free(command);
-				break;
-
-			default:
-				free(command);
+				commandProcessor(packages, "xbps-query -Rs ");
 		}
 	}
 }

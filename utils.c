@@ -65,3 +65,12 @@ char* stringedArgument(int argc, char** argv)
 	}
 	return arg;
 }
+
+void commandProcessor(char* packages, char* initCommand)
+{
+	char* command = (char *) calloc(strlen(packages) + 80, sizeof(char));
+	strcpy(command, initCommand);
+	strcat(command, packages);
+	system(command);
+	free(command);
+}
