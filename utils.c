@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -16,38 +17,48 @@ int detectOsType()
 		switch (i)
 		{
 			case apt:
-				if ( checkIfFileExists("/usr/bin/apt") == 0 )
+				if ( checkIfFileExists("/usr/bin/apt" ) == 0 )
 				{
 					exists = i;
 				}
 				break;
 
 			case dnf:
-				if ( checkIfFileExists("/usr/bin/dnf") == 0 )
+				if ( checkIfFileExists("/usr/bin/dnf" ) == 0 )
 				{
 					exists = i;
 				}
 				break;
 
 			case emerge:
-				if ( checkIfFileExists("/usr/bin/emerge") == 0 )
+				if ( checkIfFileExists("/usr/bin/emerge" ) == 0 )
 				{
 					exists = i;
 				}
 				break;
 
 			case pacman:
-				if ( checkIfFileExists("/usr/bin/pacman") == 0 )
+				if ( checkIfFileExists("/usr/bin/pacman" ) == 0 )
 				{
 					exists = i;
 				}
 				break;
 
 			case xbps:
-				if ( checkIfFileExists("/usr/bin/xbps-install") == 0 )
+				if ( checkIfFileExists("/usr/bin/xbps-install" ) == 0 )
 				{
 					exists = i;
 				}
+				break;
+
+			case zypper:
+				if ( checkIfFileExists("/usr/bin/zypper" ) == 0 )
+				{
+					exists = i;
+				}
+
+			default:
+				puts("Unrecognized Package Manager" );
 		}
 	}
 	return exists;

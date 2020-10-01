@@ -35,6 +35,7 @@ This is a C wrapper that integrates with the prebuilt package managers in variou
 * Debian based distros;
 * Fedora based distros;
 * Gentoo based distros;
+* OpenSUSE based distros;
 * Void Linux *(or xbps)* derived/based distro.
 
 ## FAQ

@@ -9,6 +9,7 @@ enum os
 	emerge,
 	pacman,
 	xbps,
+	zypper,
 	ENUMSIZE
 };
 

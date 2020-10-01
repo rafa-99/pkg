@@ -63,19 +63,23 @@ void cleanPackages(int os)
 
 		case xbps:
 			system("xbps-remove -ROo");
+			break;
+
+		case zypper:
+			system("zypper cc -a");
 	}
 }
 
 void help()
 {
 	printf("PKG Options:\n"
-			"c - removes orphans and cleans the package cache\n"
-			"h - display this message\n"
-			"i - installs selected packages\n"
-			"q - display installed packages\n"
-			"r - remove a selected package\n"
-			"s - look up for a package in the available repositories\n"
-			"u - updates repos and packages\n\n");
+		"c - removes orphans and cleans the package cache\n"
+		"h - display this message\n"
+		"i - installs selected packages\n"
+		"q - display installed packages\n"
+		"r - remove a selected package\n"
+		"s - look up for a package in the available repositories\n"
+		"u - updates repos and packages\n\n");
 }
 
 void installPackages(int os, char *packages)
@@ -102,6 +106,10 @@ void installPackages(int os, char *packages)
 
 			case xbps:
 				commandProcessor(packages, "xbps-install -S ");
+				break;
+
+			case zypper:
+				commandProcessor(packages, "zypper install ");
 		}
 	}
 }
@@ -128,6 +136,10 @@ void queryPackages(int os)
 
 		case xbps:
 			system("xbps-query -l");
+			break;
+
+		case zypper:
+			system("zypper packages -i");
 	}
 }
 
@@ -155,6 +167,10 @@ void removePackages(int os, char *packages)
 
 			case xbps:
 				commandProcessor(packages, "xbps-remove -ROo ");
+				break;
+
+			case zypper:
+				commandProcessor(packages, "zypper remove -u ");
 		}
 	}
 }
@@ -183,6 +199,10 @@ void searchPackages(int os, char *packages)
 
 			case xbps:
 				commandProcessor(packages, "xbps-query -Rs ");
+				break;
+
+			case zypper:
+				commandProcessor(packages, "zypper search ");
 		}
 	}
 }
@@ -209,5 +229,9 @@ void updatePackages(int os)
 
 		case xbps:
 			system("xbps-install -Su");
+			break;
+
+		case zypper:
+			system("zypper update && zypper dist-upgrade");
 	}
 }
