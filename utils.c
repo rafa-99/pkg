@@ -56,6 +56,7 @@ int detectOsType()
 				{
 					exists = i;
 				}
+				break;
 
 			default:
 				puts("Unrecognized Package Manager" );
