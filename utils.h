@@ -4,12 +4,12 @@
 
 enum os
 {
-	apt,
-	dnf,
-	emerge,
-	pacman,
-	xbps,
-	zypper,
+	apt,	/* Debian */
+	dnf,	/* Fedora */
+	emerge,	/* Gentoo */
+	pacman,	/* Arch */
+	xbps,	/* Void */
+	zypper,	/* OpenSUSE */
 	ENUMSIZE
 };
 
