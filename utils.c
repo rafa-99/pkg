@@ -68,7 +68,7 @@ int detectOsType()
 char* stringedArgument(int argc, char** argv)
 {
 	int numberOfTotalPackages = argc - 2;
-	char* arg = (char *) calloc(((numberOfTotalPackages * 80) + numberOfTotalPackages), sizeof(char));
+	char* arg = (char *) calloc((numberOfTotalPackages * 80), sizeof(char));
 
 	for( int i = 2; i < argc; i++ )
 	{
