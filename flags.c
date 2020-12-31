@@ -1,237 +1,248 @@
+#include "flags.h"
+#include "utils.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "flags.h"
 
-void flags(char flag, char* packages)
+void
+flags (char flag, char *packages)
 {
-	int os = detectOsType();
+	int os = detectOsType ();
 	switch (flag)
 	{
 		case 'c':
-			cleanPackages(os);
+			cleanPackages (os);
 			break;
 
 		case 'h':
-			help();
+			help ();
 			break;
 
 		case 'i':
-			installPackages(os, packages);
+			installPackages (os, packages);
 			break;
 
 		case 'q':
-			queryPackages(os);
+			queryPackages (os);
 			break;
 
 		case 'r':
-			removePackages(os, packages);
+			removePackages (os, packages);
 			break;
 
 		case 's':
-			searchPackages(os, packages);
+			searchPackages (os, packages);
 			break;
 
 		case 'u':
-			updatePackages(os);
+			updatePackages (os);
 			break;
 
 		default:
-			puts("Command not found");
-			help();
+			puts ("Command not found");
+			help ();
 	}
 }
 
-void cleanPackages(int os)
+void
+cleanPackages (int os)
 {
-	switch(os)
+	switch (os)
 	{
-		case apt:
-			system("apt autoremove --purge || apt clean");
-			break;
-
 		case dnf:
-			system("dnf clean all && dnf autoremove");
+			system ("dnf clean all && dnf autoremove");
 			break;
 
 		case emerge:
-			system("emerge -caq");
+			system ("emerge -caq");
 			break;
 
 		case pacman:
-			system("pacman -Rns \"$(pacman -Qtdq)\" || pacman -Scc");
+			system ("pacman -Rns \"$(pacman -Qtdq)\" || pacman -Scc");
 			break;
 
 		case xbps:
-			system("xbps-remove -ROo");
+			system ("xbps-remove -ROo");
 			break;
 
 		case zypper:
-			system("zypper cc -a");
+			system ("zypper cc -a");
+			break;
+
+		case apt:
+			system ("apt autoremove --purge || apt clean");
 	}
 }
 
-void help()
+void
+help ()
 {
-	printf("PKG Options:\n"
-		"c - removes orphans and cleans the package cache\n"
-		"h - display this message\n"
-		"i - installs selected packages\n"
-		"q - display installed packages\n"
-		"r - remove a selected package\n"
-		"s - look up for a package in the available repositories\n"
-		"u - updates repos and packages\n\n");
+	printf ("PKG Options:\n"
+			"c - removes orphans and cleans the package cache\n"
+			"h - display this message\n"
+			"i - installs selected packages\n"
+			"q - display installed packages\n"
+			"r - remove a selected package\n"
+			"s - look up for a package in the available repositories\n"
+			"u - updates repos and packages\n\n");
 }
 
-void installPackages(int os, char *packages)
+void
+installPackages (int os, char *packages)
 {
-	if ( strlen(packages) > 0 )
+	if (strlen (packages) > 0)
 	{
-		switch(os)
+		switch (os)
 		{
-			case apt:
-				commandProcessor(packages, "apt install ");
-				break;
-
 			case dnf:
-				commandProcessor(packages, "dnf install ");
+				commandProcessor (packages, "dnf install ");
 				break;
 
 			case emerge:
-				commandProcessor(packages, "emerge -aq ");
+				commandProcessor (packages, "emerge -aq ");
 				break;
 
 			case pacman:
-				commandProcessor(packages, "pacman -S ");
+				commandProcessor (packages, "pacman -S ");
 				break;
 
 			case xbps:
-				commandProcessor(packages, "xbps-install -S ");
+				commandProcessor (packages, "xbps-install -S ");
 				break;
 
 			case zypper:
-				commandProcessor(packages, "zypper install ");
+				commandProcessor (packages, "zypper install ");
+				break;
+
+			case apt:
+				commandProcessor (packages, "apt install ");
 		}
 	}
 }
 
-void queryPackages(int os)
+void
+queryPackages (int os)
 {
-	switch(os)
+	switch (os)
 	{
-		case apt:
-			system("apt list --installed");
-			break;
-
 		case dnf:
-			system("dnf list --installed");
+			system ("dnf list --installed");
 			break;
 
 		case emerge:
-			system("cd /var/db/pkg/ && ls -d */* | sed 's:\\/$::'");
+			system ("cd /var/db/pkg/ && ls -d */* | sed 's:\\/$::'");
 			break;
 
 		case pacman:
-			system("pacman -Qs");
+			system ("pacman -Qs");
 			break;
 
 		case xbps:
-			system("xbps-query -l");
+			system ("xbps-query -l");
 			break;
 
 		case zypper:
-			system("zypper packages -i");
+			system ("zypper packages -i");
+			break;
+
+		case apt:
+			system ("apt list --installed");
 	}
 }
 
-void removePackages(int os, char *packages)
+void
+removePackages (int os, char *packages)
 {
-	if ( strlen(packages) > 0 )
+	if (strlen (packages) > 0)
 	{
-		switch(os)
+		switch (os)
 		{
-			case apt:
-				commandProcessor(packages, "apt autoremove --purge ");
-				break;
-
 			case dnf:
-				commandProcessor(packages, "dnf remove ");
+				commandProcessor (packages, "dnf remove ");
 				break;
 
 			case emerge:
-				commandProcessor(packages, "emerge -caq ");
+				commandProcessor (packages, "emerge -caq ");
 				break;
 
 			case pacman:
-				commandProcessor(packages, "pacman -Rnsc ");
+				commandProcessor (packages, "pacman -Rnsc ");
 				break;
 
 			case xbps:
-				commandProcessor(packages, "xbps-remove -ROo ");
+				commandProcessor (packages, "xbps-remove -ROo ");
 				break;
 
 			case zypper:
-				commandProcessor(packages, "zypper remove -u ");
+				commandProcessor (packages, "zypper remove -u ");
+				break;
+
+			case apt:
+				commandProcessor (packages, "apt autoremove --purge ");
 		}
 	}
 }
 
-void searchPackages(int os, char *packages)
+void
+searchPackages (int os, char *packages)
 {
-	if ( strlen(packages) > 0 )
+	if (strlen (packages) > 0)
 	{
-		switch(os)
+		switch (os)
 		{
-			case apt:
-				commandProcessor(packages, "apt search ");
-				break;
-
 			case dnf:
-				commandProcessor(packages, "dnf search ");
+				commandProcessor (packages, "dnf search ");
 				break;
 
 			case emerge:
-				commandProcessor(packages, "emerge -s ");
+				commandProcessor (packages, "emerge -s ");
 				break;
 
 			case pacman:
-				commandProcessor(packages, "pacman -Ss ");
+				commandProcessor (packages, "pacman -Ss ");
 				break;
 
 			case xbps:
-				commandProcessor(packages, "xbps-query -Rs ");
+				commandProcessor (packages, "xbps-query -Rs ");
 				break;
 
 			case zypper:
-				commandProcessor(packages, "zypper search ");
+				commandProcessor (packages, "zypper search ");
+				break;
+
+			case apt:
+				commandProcessor (packages, "apt search ");
 		}
 	}
 }
 
-void updatePackages(int os)
+void
+updatePackages (int os)
 {
-	switch(os)
+	switch (os)
 	{
-		case apt:
-			system("apt update && apt upgrade -y");
-			break;
-
 		case dnf:
-			system("dnf update");
+			system ("dnf update");
 			break;
 
 		case emerge:
-			system("emerge-webrsync && emerge -uaqDU --keep-going --with-bdeps=y --newuse @world");
+			system ("emerge-webrsync && emerge -uaqDU --keep-going --with-bdeps=y "
+					"--newuse @world");
 			break;
 
 		case pacman:
-			system("pacman -Syyuu");
+			system ("pacman -Syyuu");
 			break;
 
 		case xbps:
-			system("xbps-install -Su");
+			system ("xbps-install -Su");
 			break;
 
 		case zypper:
-			system("zypper update && zypper dist-upgrade");
+			system ("zypper update && zypper dist-upgrade");
+			break;
+
+		case apt:
+			system ("apt update && apt upgrade -y");
 	}
 }
