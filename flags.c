@@ -58,7 +58,7 @@ cleanPackages (int os)
 			break;
 
 		case pacman:
-			system ("pacman -Rns \"$(pacman -Qtdq)\" || pacman -Scc");
+			system ("pacman -Qttdq | pacman -Rns - || pacman -Scc");
 			break;
 
 		case xbps:
